@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Lang = "mn" | "en" | "zh";
 
@@ -114,6 +114,22 @@ export default function Home() {
   const [majorQuery, setMajorQuery] = useState("");
   const [examQuery, setExamQuery] = useState("");
   const [activeFaq, setActiveFaq] = useState(0);
+  const [showAuthSuccess] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("auth") === "success";
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("auth") === "success") {
+      params.delete("auth");
+      const nextQuery = params.toString();
+      const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}`;
+      window.history.replaceState({}, "", nextUrl);
+    }
+  }, []);
 
   const t = copy[lang];
 
@@ -138,6 +154,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      {showAuthSuccess ? (
+        <div className="mx-auto max-w-6xl px-6 pt-6 md:px-14">
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+            ✅ Амжилттай нэвтэрлээ.
+          </div>
+        </div>
+      ) : null}
+
       <section className="bg-gradient-to-r from-[#6b0f1a] to-[#8b1e2d] px-6 py-14 text-white md:px-14">
         <div className="mx-auto max-w-6xl">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">

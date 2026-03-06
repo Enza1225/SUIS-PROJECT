@@ -31,7 +31,7 @@ export default function SignupForm({ degree }: { degree: string }) {
         return;
       }
 
-      router.push("/");
+      router.push("/?auth=success");
       router.refresh();
     } catch {
       setError("Network error. Please try again.");
