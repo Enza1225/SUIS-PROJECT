@@ -1,11 +1,16 @@
-"use client";
-
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
-export default function SignUpPage() {
-  const searchParams = useSearchParams();
-  const degree = searchParams.get("degree") ?? "bachelor";
+type SearchParams = {
+  degree?: string;
+};
+
+export default async function SignUpPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const params = await searchParams;
+  const degree = params.degree ?? "bachelor";
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900 sm:px-6">
