@@ -138,8 +138,8 @@ export default function Home() {
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <section className="bg-gradient-to-r from-indigo-700 to-blue-700 px-6 py-14 text-white md:px-14">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <h1 className="text-2xl font-bold md:text-4xl">{t.title}</h1>
+          <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
+            <h1 className="max-w-4xl text-xl font-bold leading-tight sm:text-2xl md:text-4xl">{t.title}</h1>
             <div className="flex gap-2 rounded-full bg-white/20 p-1 text-sm">
               {([
                 ["mn", "MN"],
@@ -156,7 +156,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <p className="mb-8 text-lg text-blue-100">{t.subtitle}</p>
+          <p className="mb-8 text-sm text-blue-100 sm:text-base md:text-lg">{t.subtitle}</p>
           <a
             href="#degrees"
             className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
@@ -272,7 +272,17 @@ export default function Home() {
             placeholder="Хөтөлбөр/мэргэжил/байршлаар хайх..."
             className="mb-4 w-full rounded-lg border px-3 py-2 text-sm"
           />
-          <div className="overflow-x-auto">
+          <div className="space-y-3 md:hidden">
+            {filteredSchedules.map((s, i) => (
+              <div key={i} className="rounded-xl border p-3 text-sm">
+                <p><span className="font-semibold">Огноо:</span> {s.date}</p>
+                <p><span className="font-semibold">Хөтөлбөр:</span> {s.program}</p>
+                <p><span className="font-semibold">Мэргэжил:</span> {s.major}</p>
+                <p><span className="font-semibold">Байршил:</span> {s.place}</p>
+              </div>
+            ))}
+          </div>
+          <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[620px] text-left text-sm">
               <thead>
                 <tr className="border-b bg-slate-50">
@@ -316,10 +326,10 @@ export default function Home() {
 
         <section id="degrees" className="rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-xl font-bold">{t.degree}</h2>
-          <div className="flex flex-wrap gap-3 text-sm">
-            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-white">Bachelor</a>
-            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-white">Master</a>
-            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-white">PhD</a>
+          <div className="grid gap-3 text-sm sm:flex sm:flex-wrap">
+            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-white">Bachelor</a>
+            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-white">Master</a>
+            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-white">PhD</a>
           </div>
         </section>
       </div>
