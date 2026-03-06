@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type Lang = "mn" | "en" | "zh";
@@ -170,12 +171,20 @@ export default function Home() {
             </div>
           </div>
           <p className="mb-8 text-sm text-rose-100 sm:text-base md:text-lg">{t.subtitle}</p>
-          <a
-            href="#degrees"
-            className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition hover:bg-rose-50"
-          >
-            {t.registerNow}
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/signup"
+              className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition hover:bg-rose-50"
+            >
+              {t.registerNow}
+            </Link>
+            <Link
+              href="/signin"
+              className="inline-block rounded-xl border border-white/60 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+            >
+              Sign in
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -340,9 +349,9 @@ export default function Home() {
         <section id="degrees" className="rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-xl font-bold">{t.degree}</h2>
           <div className="grid gap-3 text-sm sm:flex sm:flex-wrap">
-            <a href="#" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Bachelor</a>
-            <a href="#" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Master</a>
-            <a href="#" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">PhD</a>
+            <Link href="/signup?degree=bachelor" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Bachelor</Link>
+            <Link href="/signup?degree=master" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Master</Link>
+            <Link href="/signup?degree=phd" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">PhD</Link>
           </div>
         </section>
       </div>
