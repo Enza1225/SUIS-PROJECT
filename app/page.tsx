@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 type Lang = "mn" | "en" | "zh";
@@ -136,10 +137,22 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="bg-gradient-to-r from-indigo-700 to-blue-700 px-6 py-14 text-white md:px-14">
+      <section className="bg-gradient-to-r from-[#6b0f1a] to-[#8b1e2d] px-6 py-14 text-white md:px-14">
         <div className="mx-auto max-w-6xl">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
-            <h1 className="max-w-4xl text-xl font-bold leading-tight sm:text-2xl md:text-4xl">{t.title}</h1>
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="rounded-xl bg-white/95 p-2 shadow-md">
+                <Image
+                  src="/suis-logo.png"
+                  alt="SUIS logo"
+                  width={64}
+                  height={64}
+                  className="h-12 w-12 object-contain sm:h-16 sm:w-16"
+                  priority
+                />
+              </div>
+              <h1 className="max-w-4xl text-xl font-bold leading-tight sm:text-2xl md:text-4xl">{t.title}</h1>
+            </div>
             <div className="flex gap-2 rounded-full bg-white/20 p-1 text-sm">
               {([
                 ["mn", "MN"],
@@ -149,17 +162,17 @@ export default function Home() {
                 <button
                   key={key}
                   onClick={() => setLang(key)}
-                  className={`rounded-full px-4 py-1 ${lang === key ? "bg-white text-blue-700" : "text-white"}`}
+                  className={`rounded-full px-4 py-1 ${lang === key ? "bg-white text-[#7a1221]" : "text-white"}`}
                 >
                   {label}
                 </button>
               ))}
             </div>
           </div>
-          <p className="mb-8 text-sm text-blue-100 sm:text-base md:text-lg">{t.subtitle}</p>
+          <p className="mb-8 text-sm text-rose-100 sm:text-base md:text-lg">{t.subtitle}</p>
           <a
             href="#degrees"
-            className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
+            className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition hover:bg-rose-50"
           >
             {t.registerNow}
           </a>
@@ -184,7 +197,7 @@ export default function Home() {
               "Ур чадварын шалгалтын журам",
               "Төлбөр, буцаалт, хөнгөлөлтийн журам",
             ].map((rule) => (
-              <a key={rule} href="#" className="rounded-xl border p-4 text-sm transition hover:border-blue-500 hover:text-blue-700">
+              <a key={rule} href="#" className="rounded-xl border p-4 text-sm transition hover:border-[#8b1e2d] hover:text-[#7a1221]">
                 {rule}
               </a>
             ))}
@@ -217,10 +230,10 @@ export default function Home() {
         <section className="rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-xl font-bold">{t.stats}</h2>
           <div className="grid gap-3 text-sm md:grid-cols-4">
-            <div className="rounded-xl bg-blue-50 p-4">2025 элсэгч: <b>4,860</b></div>
-            <div className="rounded-xl bg-blue-50 p-4">Өрсөлдөөн: <b>1:3.1</b></div>
-            <div className="rounded-xl bg-blue-50 p-4">Тэтгэлэг авсан: <b>812</b></div>
-            <div className="rounded-xl bg-blue-50 p-4">Орон нутаг: <b>41%</b></div>
+            <div className="rounded-xl bg-rose-50 p-4">2025 элсэгч: <b>4,860</b></div>
+            <div className="rounded-xl bg-rose-50 p-4">Өрсөлдөөн: <b>1:3.1</b></div>
+            <div className="rounded-xl bg-rose-50 p-4">Тэтгэлэг авсан: <b>812</b></div>
+            <div className="rounded-xl bg-rose-50 p-4">Орон нутаг: <b>41%</b></div>
           </div>
         </section>
 
@@ -237,7 +250,7 @@ export default function Home() {
               <div key={p.id} className="rounded-xl border p-4 text-sm">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="font-semibold">{p.name}</h3>
-                  <span className="rounded-md bg-indigo-100 px-2 py-1 text-xs">Босго оноо: {p.score}</span>
+                  <span className="rounded-md bg-rose-100 px-2 py-1 text-xs text-[#7a1221]">Босго оноо: {p.score}</span>
                 </div>
                 <p className="mt-1 text-slate-600">Түвшин: {p.degree}</p>
                 <p className="mt-1 text-slate-600">Шаардлага: {p.requirement}</p>
@@ -313,7 +326,7 @@ export default function Home() {
               {faqs.map((f, i) => (
                 <button
                   key={f.q}
-                  className={`rounded-lg border px-3 py-2 text-left text-sm ${activeFaq === i ? "border-blue-600 bg-blue-50" : ""}`}
+                  className={`rounded-lg border px-3 py-2 text-left text-sm ${activeFaq === i ? "border-[#8b1e2d] bg-rose-50" : ""}`}
                   onClick={() => setActiveFaq(i)}
                 >
                   {f.q}
@@ -327,9 +340,9 @@ export default function Home() {
         <section id="degrees" className="rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-xl font-bold">{t.degree}</h2>
           <div className="grid gap-3 text-sm sm:flex sm:flex-wrap">
-            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-white">Bachelor</a>
-            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-white">Master</a>
-            <a href="#" className="rounded-lg bg-indigo-600 px-4 py-2 text-center text-white">PhD</a>
+            <a href="#" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Bachelor</a>
+            <a href="#" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Master</a>
+            <a href="#" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">PhD</a>
           </div>
         </section>
       </div>
