@@ -29,6 +29,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      COOKIE_SECURE: "false"
       DATABASE_URL: postgresql://postgres:Enza%212003@db:5432/suis_db?schema=public
     ports:
       - "3000:3000"
