@@ -29,7 +29,7 @@ export default function SignInPage() {
         return;
       }
 
-      router.push("/?auth=success");
+      router.push("/dashboard");
       router.refresh();
     } catch {
       setError("Network error. Please try again.");
