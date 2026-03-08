@@ -162,7 +162,7 @@ export default function Home() {
         </div>
       ) : null}
 
-      <section className="relative min-h-[92vh] overflow-hidden px-6 pt-14 pb-8 text-white md:px-14">
+      <section className="relative min-h-[92vh] overflow-hidden px-6 pt-4 pb-8 text-white md:px-14">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
@@ -174,6 +174,40 @@ export default function Home() {
           <source src="/video/videoplayback.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-[#6b0f1a]/75 to-[#8b1e2d]/65" />
+
+        <header className="relative z-20 -mx-6 mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-white/20 px-6 pb-3 text-xs font-semibold uppercase tracking-wide text-white/90 md:-mx-14 md:px-14 md:text-sm">
+          <nav className="flex flex-wrap items-center gap-4 md:gap-6">
+            {["News & Stories", "Calendars", "Alumni", "The Museum", "Support"].map((item) => (
+              <a key={item} href="#" className="transition hover:text-white">
+                {item}
+              </a>
+            ))}
+          </nav>
+          <div className="flex flex-wrap items-center gap-3 md:gap-5">
+            <nav className="flex flex-wrap items-center gap-4 md:gap-6">
+              {["Resources", "Apply", "Get Info", "Meet Us"].map((item) => (
+                <a key={item} href="#" className="transition hover:text-white">
+                  {item}
+                </a>
+              ))}
+            </nav>
+            <div className="flex gap-1 rounded-full bg-white/20 p-1 text-[11px] font-bold normal-case md:text-sm">
+              {([
+                ["mn", "MN"],
+                ["en", "EN"],
+                ["zh", "中文"],
+              ] as [Lang, string][]).map(([key, label]) => (
+                <button
+                  key={key}
+                  onClick={() => setLang(key)}
+                  className={`rounded-full px-3 py-1.5 ${lang === key ? "bg-white text-[#7a1221]" : "text-white"}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </header>
 
         <div className="relative z-10 mx-auto max-w-6xl">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
@@ -190,21 +224,7 @@ export default function Home() {
               </div>
               <h1 className="max-w-4xl text-xl font-bold leading-tight sm:text-2xl md:text-4xl">{t.title}</h1>
             </div>
-            <div className="flex gap-2 rounded-full bg-white/20 p-1 text-sm">
-              {([
-                ["mn", "MN"],
-                ["en", "EN"],
-                ["zh", "中文"],
-              ] as [Lang, string][]).map(([key, label]) => (
-                <button
-                  key={key}
-                  onClick={() => setLang(key)}
-                  className={`rounded-full px-4 py-1 ${lang === key ? "bg-white text-[#7a1221]" : "text-white"}`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+            {null}
           </div>
           <p className="mb-8 text-sm text-rose-100 sm:text-base md:text-lg">{t.subtitle}</p>
           <div className="flex flex-wrap items-center gap-3">
