@@ -162,8 +162,20 @@ export default function Home() {
         </div>
       ) : null}
 
-      <section className="bg-gradient-to-r from-[#6b0f1a] to-[#8b1e2d] px-6 py-14 text-white md:px-14">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative min-h-[92vh] overflow-hidden px-6 pt-14 pb-8 text-white md:px-14">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source src="/video/videoplayback.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#6b0f1a]/75 to-[#8b1e2d]/65" />
+
+        <div className="relative z-10 mx-auto max-w-6xl">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="rounded-xl bg-white/95 p-2 shadow-md">
