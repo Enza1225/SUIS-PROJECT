@@ -115,6 +115,7 @@ export default function Home() {
   const [examQuery, setExamQuery] = useState("");
   const [activeFaq, setActiveFaq] = useState(0);
   const [showDegreeOptions, setShowDegreeOptions] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const [showAuthSuccess] = useState(() => {
     if (typeof window === "undefined") return false;
     const params = new URLSearchParams(window.location.search);
@@ -392,10 +393,24 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.chatbot}</h2>
-          <div className="grid gap-3 md:grid-cols-[1fr_2fr]">
-            <div className="flex flex-col gap-2">
+        <section className="hidden" aria-hidden="true" />
+      </div>
+
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+        {chatOpen ? (
+          <div className="w-[320px] rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl">
+            <div className="mb-3 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-900">{t.chatbot}</h3>
+              <button
+                type="button"
+                onClick={() => setChatOpen(false)}
+                className="rounded-full border px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-100"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mb-3 flex flex-col gap-2">
               {faqs.map((f, i) => (
                 <button
                   key={f.q}
@@ -406,11 +421,19 @@ export default function Home() {
                 </button>
               ))}
             </div>
-            <div className="rounded-xl bg-slate-100 p-4 text-sm">{faqs[activeFaq].a}</div>
-          </div>
-        </section>
 
-        <section className="hidden" aria-hidden="true" />
+            <div className="rounded-xl bg-slate-100 p-3 text-sm text-slate-800">{faqs[activeFaq].a}</div>
+          </div>
+        ) : null}
+
+        <button
+          type="button"
+          onClick={() => setChatOpen((prev) => !prev)}
+          className="h-14 w-14 rounded-full bg-[#7a1221] text-2xl text-white shadow-xl transition hover:scale-105"
+          aria-label="Open chatbot"
+        >
+          💬
+        </button>
       </div>
     </main>
   );
