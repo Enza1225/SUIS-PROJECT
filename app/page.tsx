@@ -212,25 +212,28 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="relative z-10 flex min-h-[72vh] w-full max-w-6xl flex-col">
+        <div className="relative z-10 mx-auto flex min-h-[72vh] w-full max-w-6xl flex-col">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-3 sm:gap-4 md:-ml-40">
               <div className="rounded-xl bg-white/95 p-2 shadow-md">
                 <Image
                   src="/suis-logo.png"
                   alt="SUIS logo"
                   width={64}
                   height={64}
-                  className="h-12 w-12 object-contain sm:h-16 sm:w-16"
+                  className="h-16 w-16 object-contain sm:h-20 sm:w-20 md:h-24 md:w-24"
                   priority
                 />
               </div>
-              <h1 className="max-w-4xl text-xl font-bold leading-tight sm:text-2xl md:text-4xl">{t.title}</h1>
+              <h1 className="max-w-5xl text-3xl font-extrabold leading-tight tracking-wide drop-shadow-md sm:text-4xl md:text-6xl">{t.title}</h1>
             </div>
             {null}
           </div>
-          <p className="mb-8 text-sm text-rose-100 sm:text-base md:text-lg">{t.subtitle}</p>
-          <div className="mt-auto mb-6 flex flex-wrap items-center justify-center gap-3">
+          {null}
+          <div className="mt-auto mb-6 flex flex-col items-center gap-4">
+            <p className="rounded-full border border-white/30 bg-black/25 px-5 py-2 text-center text-base font-bold text-white shadow-md backdrop-blur-sm md:text-xl">
+              Бакалаврын элсэлтийн бүртгэл эхэллээ
+            </p>
             <button
               type="button"
               onClick={() => setShowDegreeOptions((prev) => !prev)}
