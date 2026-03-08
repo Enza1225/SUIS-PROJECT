@@ -114,6 +114,7 @@ export default function Home() {
   const [majorQuery, setMajorQuery] = useState("");
   const [examQuery, setExamQuery] = useState("");
   const [activeFaq, setActiveFaq] = useState(0);
+  const [showDegreeOptions, setShowDegreeOptions] = useState(false);
   const [showAuthSuccess] = useState(() => {
     if (typeof window === "undefined") return false;
     const params = new URLSearchParams(window.location.search);
@@ -191,6 +192,7 @@ export default function Home() {
                 </a>
               ))}
             </nav>
+            <Link href="/signin" className="rounded-lg border border-white/60 px-4 py-1.5 text-white transition hover:bg-white/10 normal-case">Sign in</Link>
             <div className="flex gap-1 rounded-full bg-white/20 p-1 text-[11px] font-bold normal-case md:text-sm">
               {([
                 ["mn", "MN"],
@@ -209,7 +211,7 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="relative z-10 flex min-h-[72vh] w-full max-w-6xl flex-col">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="rounded-xl bg-white/95 p-2 shadow-md">
@@ -227,20 +229,26 @@ export default function Home() {
             {null}
           </div>
           <p className="mb-8 text-sm text-rose-100 sm:text-base md:text-lg">{t.subtitle}</p>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/signup"
-              className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition hover:bg-rose-50"
+          <div className="mt-auto mb-6 flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowDegreeOptions((prev) => !prev)}
+              className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-rose-50 active:scale-95 animate-pulse"
             >
               {t.registerNow}
-            </Link>
-            <Link
-              href="/signin"
-              className="inline-block rounded-xl border border-white/60 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
-            >
-              Sign in
-            </Link>
+            </button>
           </div>
+
+          {showDegreeOptions ? (
+            <section className="mx-auto mt-8 w-full max-w-3xl rounded-2xl border border-white/30 bg-black/20 p-6 text-center shadow-lg backdrop-blur-sm">
+              <h2 className="mb-4 text-2xl font-bold text-white">{t.degree}</h2>
+              <div className="flex flex-wrap justify-center gap-3 text-sm">
+                <Link href="/signup?degree=bachelor" className="rounded-lg bg-[#7a1221] px-5 py-2 text-center text-white hover:bg-[#65101c]">Bachelor</Link>
+                <Link href="/signup?degree=master" className="rounded-lg bg-[#7a1221] px-5 py-2 text-center text-white hover:bg-[#65101c]">Master</Link>
+                <Link href="/signup?degree=phd" className="rounded-lg bg-[#7a1221] px-5 py-2 text-center text-white hover:bg-[#65101c]">PhD</Link>
+              </div>
+            </section>
+          ) : null}
         </div>
       </section>
 
@@ -402,14 +410,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="degrees" className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.degree}</h2>
-          <div className="grid gap-3 text-sm sm:flex sm:flex-wrap">
-            <Link href="/signup?degree=bachelor" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Bachelor</Link>
-            <Link href="/signup?degree=master" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">Master</Link>
-            <Link href="/signup?degree=phd" className="rounded-lg bg-[#7a1221] px-4 py-2 text-center text-white hover:bg-[#65101c]">PhD</Link>
-          </div>
-        </section>
+        <section className="hidden" aria-hidden="true" />
       </div>
     </main>
   );
