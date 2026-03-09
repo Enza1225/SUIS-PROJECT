@@ -8,83 +8,88 @@ const YOUTUBE_PREVIEW_SECONDS = 10;
 
 type Lang = "mn" | "en" | "zh";
 
-const programs = [
+type School = {
+  id: number;
+  name: string;
+  programs: string[];
+};
+
+const schools: School[] = [
   {
     id: 1,
-    name: "Дүрслэх урлагийн хөтөлбөр",
-    degree: "Bachelor",
-    score: 520,
-    requirement: "ЕШ + Ур чадварын шалгалт",
-    majors: ["Уран зураг", "Уран баримал", "График дизайн"],
+    name: "Бүжгийн урлагийн сургууль",
+    programs: ["Ардын бүжиг", "Орчин үеийн бүжиг", "Бүжгийн багш"],
   },
   {
     id: 2,
-    name: "Хөгжмийн урлагийн хөтөлбөр",
-    degree: "Bachelor",
-    score: 500,
-    requirement: "ЕШ + Сонсгол, хөгжимдөх шалгалт",
-    majors: ["Хөгжмийн боловсрол", "Дуучин", "Хөгжмийн найруулга"],
+    name: "Театрын урлагийн сургууль",
+    programs: ["Жүжиглэлт", "Найруулагч", "Тайзны яриа"],
   },
   {
     id: 3,
-    name: "Театр, дэлгэцийн урлагийн хөтөлбөр",
-    degree: "Master",
-    score: 550,
-    requirement: "Мэргэжлийн ярилцлага + Портфолио",
-    majors: ["Жүжиглэлт", "Найруулагч", "Кино урлаг"],
+    name: "Хөгжимдөх урлагийн сургууль",
+    programs: ["Төгөлдөр хуур", "Хийл", "Үндэсний хөгжим"],
+  },
+  {
+    id: 4,
+    name: "Дүрслэх урлагийн сургууль",
+    programs: ["Уран зураг", "Уран баримал", "График дизайн"],
+  },
+  {
+    id: 5,
+    name: "Кино, дэлгэцийн урлагийн сургууль",
+    programs: ["Кино найруулга", "Зураглаач", "Кино продюсер"],
+  },
+  {
+    id: 6,
+    name: "Соёл судлал, өвийн сургууль",
+    programs: ["Соёл судлал", "Өвийн менежмент", "Музейн ажил"],
+  },
+  {
+    id: 7,
+    name: "Дизайн, медиа урлагийн сургууль",
+    programs: ["Интерьер дизайн", "Медиа арт", "Анимейшн"],
   },
 ];
 
-const majors = [
-  "Уран зураг",
-  "Уран баримал",
-  "График дизайн",
-  "Хөгжмийн боловсрол",
-  "Дуучин",
-  "Хөгжмийн найруулга",
-  "Жүжиглэлт",
-  "Найруулагч",
-  "Кино урлаг",
-];
-
 const examSchedules = [
-  { date: "2026-06-20 09:00", program: "Дүрслэх урлаг", major: "Уран зураг", place: "A байр, 301" },
-  { date: "2026-06-21 10:00", program: "Хөгжмийн урлаг", major: "Дуучин", place: "B байр, 201" },
-  { date: "2026-06-22 14:00", program: "Театр", major: "Жүжиглэлт", place: "Соёл урлагийн танхим" },
+  { date: "2026-06-20 09:00", program: "Дүрслэх урлаг", major: "Уран зураг", place: "А байр, 301" },
+  { date: "2026-06-21 10:00", program: "Хөгжимдөх урлаг", major: "Төгөлдөр хуур", place: "Б байр, 201" },
+  { date: "2026-06-22 14:00", program: "Театрын урлаг", major: "Жүжиглэлт", place: "Соёл урлагийн танхим" },
 ];
 
 const faqs = [
   {
     q: "Бүртгэл хэзээ эхлэх вэ?",
-    a: "2026 оны 6-р сарын 1-нд цахимаар эхэлнэ.",
+    a: "2026 оны 6-р сарын 1-нд цахимаар эхэлж, 6-р сарын 25 хүртэл үргэлжилнэ.",
   },
   {
-    q: "Ямар бичиг баримт бүрдүүлэх вэ?",
-    a: "Иргэний үнэмлэх, боловсролын үнэмлэх, цээж зураг, шаардлагатай бол портфолио.",
+    q: "Онооны тооцоолуур юунд хэрэгтэй вэ?",
+    a: "ЕШ, ур чадвар, ярилцлага зэрэг оноогоо оруулаад урьдчилсан нийлбэрээ харах боломжтой.",
   },
   {
-    q: "Ур чадварын шалгалт заавал өгөх үү?",
-    a: "Тийм. Мэргэжлээс хамаарч ур чадварын шалгалт эсвэл ярилцлага авна.",
+    q: "Сургууль сонголтоо хаанаас хийх вэ?",
+    a: "Header дээрх “Бүрэлдэхүүн сургууль” цэснээс 7 сургуулийн аль нэгийг сонгож мэдээлэл үзнэ.",
   },
 ];
 
 const studentStories = [
   {
     id: 1,
-    name: "Оюутан 1",
-    quote: "Сургуулийн орчин, боломжууд надад хамгийн их таалагдсан.",
+    name: "Оюутны видео 1",
+    quote: "Энд би өөрийн ур чадвараа илүү тодорхой хөгжүүлж чадсан.",
     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 2,
-    name: "Оюутан 2",
-    quote: "Энд би өөрийн чиглэлээ илүү тодорхой олсон.",
+    name: "Оюутны видео 2",
+    quote: "Сургалтын орчин, багш нарын дэмжлэг маш хүчтэй санагдсан.",
     youtubeUrl: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
   },
   {
     id: 3,
-    name: "Оюутан 3",
-    quote: "Багш нарын дэмжлэг, орчны уур амьсгал урам өгдөг.",
+    name: "Оюутны видео 3",
+    quote: "Элсэлтийн процесс ойлгомжтой, шат дараатай байсан.",
     youtubeUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
   },
 ];
@@ -141,11 +146,10 @@ const copy = {
     subtitle: "Албан ёсны элсэлтийн бүртгэлийн систем",
     registerNow: "Бүртгүүлэх",
     admissionInfo: "Бүртгэлийн мэдээлэл",
-    rules: "Дүрэм журам",
     guide: "Бүртгэлийн заавар",
     stats: "Элсэлтийн статистик",
-    programs: "Хөтөлбөрүүд",
-    majors: "Мэргэжлүүд",
+    calculator: "Шалгалтын онооны тооцоолуур",
+    contact: "Бидэнтэй холбогдох",
     chatbot: "Туслах чатбот",
     degree: "Бүртгүүлэх түвшин",
   },
@@ -154,11 +158,10 @@ const copy = {
     subtitle: "Official admission registration system",
     registerNow: "Register",
     admissionInfo: "Admission information",
-    rules: "Rules & regulations",
     guide: "Registration guide",
     stats: "Admission statistics",
-    programs: "Programs",
-    majors: "Majors",
+    calculator: "Score calculator",
+    contact: "Contact us",
     chatbot: "Assistant chatbot",
     degree: "Apply for degree",
   },
@@ -167,11 +170,10 @@ const copy = {
     subtitle: "官方招生注册系统",
     registerNow: "立即注册",
     admissionInfo: "报名信息",
-    rules: "规章制度",
     guide: "注册指南",
     stats: "招生统计",
-    programs: "培养项目",
-    majors: "专业",
+    calculator: "分数计算器",
+    contact: "联系我们",
     chatbot: "问答机器人",
     degree: "选择申请层级",
   },
@@ -179,14 +181,17 @@ const copy = {
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("mn");
-  const [programQuery, setProgramQuery] = useState("");
-  const [majorQuery, setMajorQuery] = useState("");
   const [examQuery, setExamQuery] = useState("");
   const [activeFaq, setActiveFaq] = useState(0);
   const [showDegreeOptions, setShowDegreeOptions] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [showSchools, setShowSchools] = useState(false);
+  const [selectedSchoolId, setSelectedSchoolId] = useState<number>(schools[0].id);
   const [previewingStoryId, setPreviewingStoryId] = useState<number | null>(null);
   const [playingStoryId, setPlayingStoryId] = useState<number | null>(null);
+  const [examScore, setExamScore] = useState("520");
+  const [skillScore, setSkillScore] = useState("85");
+  const [interviewScore, setInterviewScore] = useState("20");
   const [showAuthSuccess] = useState(() => {
     if (typeof window === "undefined") return false;
     const params = new URLSearchParams(window.location.search);
@@ -205,16 +210,7 @@ export default function Home() {
   }, []);
 
   const t = copy[lang];
-
-  const filteredPrograms = useMemo(
-    () => programs.filter((p) => p.name.toLowerCase().includes(programQuery.toLowerCase())),
-    [programQuery],
-  );
-
-  const filteredMajors = useMemo(
-    () => majors.filter((m) => m.toLowerCase().includes(majorQuery.toLowerCase())),
-    [majorQuery],
-  );
+  const selectedSchool = schools.find((school) => school.id === selectedSchoolId) ?? schools[0];
 
   const filteredSchedules = useMemo(
     () =>
@@ -228,13 +224,12 @@ export default function Home() {
   const storyCards = useMemo(
     () =>
       studentStories
-        .map((story) => ({
-          ...story,
-          videoId: extractYouTubeVideoId(story.youtubeUrl),
-        }))
+        .map((story) => ({ ...story, videoId: extractYouTubeVideoId(story.youtubeUrl) }))
         .filter((story) => story.videoId),
     [],
   );
+
+  const totalScore = Number(examScore || 0) + Number(skillScore || 0) + Number(interviewScore || 0);
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
@@ -247,56 +242,73 @@ export default function Home() {
       ) : null}
 
       <section className="relative min-h-[92vh] overflow-hidden px-6 pt-4 pb-8 text-white md:px-14">
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-        >
+        <video className="absolute inset-0 h-full w-full object-cover" autoPlay loop muted playsInline preload="auto">
           <source src="/video/videoplayback.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#6b0f1a]/75 to-[#8b1e2d]/65" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#5b0b16]/85 via-[#7a1221]/80 to-[#8b1e2d]/75" />
 
-        <header className="relative z-20 -mx-6 mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-white/20 px-6 pb-3 text-xs font-semibold uppercase tracking-wide text-white/90 md:-mx-14 md:px-14 md:text-sm">
-          <nav className="flex flex-wrap items-center gap-4 md:gap-6">
-            {["News & Stories", "Calendars", "Alumni", "The Museum", "Support"].map((item) => (
-              <a key={item} href="#" className="transition hover:text-white">
-                {item}
-              </a>
-            ))}
-          </nav>
-          <div className="flex flex-wrap items-center gap-3 md:gap-5">
-            <nav className="flex flex-wrap items-center gap-4 md:gap-6">
-              {["Resources", "Apply", "Get Info", "Meet Us"].map((item) => (
-                <a key={item} href="#" className="transition hover:text-white">
-                  {item}
-                </a>
-              ))}
-            </nav>
-            <Link href="/signin" className="rounded-lg border border-white/60 px-4 py-1.5 text-white transition hover:bg-white/10 normal-case">Sign in</Link>
-            <div className="flex gap-1 rounded-full bg-white/20 p-1 text-[11px] font-bold normal-case md:text-sm">
-              {([
-                ["mn", "MN"],
-                ["en", "EN"],
-                ["zh", "中文"],
-              ] as [Lang, string][]).map(([key, label]) => (
+        <header className="relative z-20 -mx-6 mb-8 border-b border-white/20 px-6 pb-4 md:-mx-14 md:px-14">
+          <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-semibold uppercase tracking-wide text-white/90 md:text-sm">
+            <div className="flex flex-wrap items-center gap-3 md:gap-6">
+              <div className="relative normal-case">
                 <button
-                  key={key}
-                  onClick={() => setLang(key)}
-                  className={`rounded-full px-3 py-1.5 ${lang === key ? "bg-white text-[#7a1221]" : "text-white"}`}
+                  type="button"
+                  onClick={() => setShowSchools((prev) => !prev)}
+                  className="rounded-lg border border-white/30 bg-white/10 px-4 py-2 text-white transition hover:bg-white/20"
                 >
-                  {label}
+                  Бүрэлдэхүүн сургууль ▾
                 </button>
-              ))}
+
+                {showSchools ? (
+                  <div className="absolute left-0 top-full mt-2 w-[310px] rounded-xl border border-white/15 bg-[#67111d]/95 p-2 text-sm normal-case shadow-2xl backdrop-blur">
+                    {schools.map((school) => (
+                      <button
+                        key={school.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedSchoolId(school.id);
+                          setShowSchools(false);
+                        }}
+                        className="flex w-full items-start rounded-lg px-3 py-2 text-left transition hover:bg-white/10"
+                      >
+                        {school.name}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+
+              <Link href="/admission-info" className="transition hover:text-white">Бүртгэлийн мэдээлэл</Link>
+              <Link href="/registration-guide" className="transition hover:text-white">Бүртгэлийн заавар</Link>
+              <Link href="/admission-stats" className="transition hover:text-white">Элсэлтийн статистик</Link>
+              <Link href="/contact" className="transition hover:text-white">Бидэнтэй холбогдох</Link>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 md:gap-5">
+              <Link href="/score-calculator" className="transition hover:text-white">Шалгалтын оноо</Link>
+              <Link href="/signin" className="rounded-lg border border-white/60 px-4 py-1.5 text-white transition hover:bg-white/10 normal-case">Нэвтрэх</Link>
+              <div className="flex gap-1 rounded-full bg-white/20 p-1 text-[11px] font-bold normal-case md:text-sm">
+                {([
+                  ["mn", "MN"],
+                  ["en", "EN"],
+                  ["zh", "中文"],
+                ] as [Lang, string][]).map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setLang(key)}
+                    className={`rounded-full px-3 py-1.5 ${lang === key ? "bg-white text-[#7a1221]" : "text-white"}`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </header>
 
         <div className="relative z-10 mx-auto flex min-h-[72vh] w-full max-w-6xl flex-col">
-          <div className="mb-6 flex flex-wrap items-start justify-between gap-3 md:items-center">
-            <div className="flex items-center gap-3 sm:gap-4 md:-ml-40">
+          <div className="mb-6 flex flex-wrap items-start justify-between gap-4 md:items-center">
+            <div className="flex items-center gap-3 sm:gap-4">
               <div className="rounded-xl bg-white/95 p-2 shadow-md">
                 <Image
                   src="/suis-logo.png"
@@ -307,22 +319,51 @@ export default function Home() {
                   priority
                 />
               </div>
-              <h1 className="max-w-5xl text-3xl font-extrabold leading-tight tracking-wide drop-shadow-md sm:text-4xl md:text-6xl">{t.title}</h1>
+              <div>
+                <h1 className="max-w-5xl text-3xl font-extrabold leading-tight tracking-wide drop-shadow-md sm:text-4xl md:text-6xl">{t.title}</h1>
+                <p className="mt-3 max-w-2xl text-sm text-white/85 md:text-base">{t.subtitle}</p>
+              </div>
             </div>
-            {null}
           </div>
-          {null}
-          <div className="mt-auto mb-6 flex flex-col items-center gap-4">
-            <p className="rounded-full border border-white/30 bg-black/25 px-5 py-2 text-center text-base font-bold text-white shadow-md backdrop-blur-sm md:text-xl">
-              Бакалаврын элсэлтийн бүртгэл эхэллээ
-            </p>
-            <button
-              type="button"
-              onClick={() => setShowDegreeOptions((prev) => !prev)}
-              className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-rose-50 active:scale-95 animate-pulse"
-            >
-              {t.registerNow}
-            </button>
+
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+            <div className="mt-auto mb-6 flex flex-col items-start gap-4">
+              <p className="rounded-full border border-white/30 bg-black/25 px-5 py-2 text-center text-base font-bold text-white shadow-md backdrop-blur-sm md:text-xl">
+                Бакалаврын элсэлтийн бүртгэл эхэллээ
+              </p>
+              <p className="max-w-2xl text-sm leading-7 text-white/90 md:text-base">
+                Чиний сонгосон сургууль: <span className="font-bold">{selectedSchool.name}</span>. Доорх хөтөлбөрүүдээс сонирхоод, бүртгэл болон шалгалтын мэдээллээ нэг дороос хараарай.
+              </p>
+              <div className="flex flex-wrap gap-3 text-sm">
+                {selectedSchool.programs.map((program) => (
+                  <span key={program} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                    {program}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowDegreeOptions((prev) => !prev)}
+                  className="inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#7a1221] transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-rose-50 active:scale-95"
+                >
+                  {t.registerNow}
+                </button>
+                <Link href="/score-calculator" className="rounded-xl border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white/10">
+                  {t.calculator}
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/20 bg-black/20 p-5 shadow-lg backdrop-blur-sm">
+              <h2 className="text-lg font-bold">Онцлох холбоосууд</h2>
+              <div className="mt-4 grid gap-3 text-sm">
+                <Link href="/admission-info" className="rounded-xl bg-white/10 px-4 py-3 transition hover:bg-white/15">Бүртгэлийн мэдээлэл харах</Link>
+                <Link href="/registration-guide" className="rounded-xl bg-white/10 px-4 py-3 transition hover:bg-white/15">Бүртгэлийн заавар үзэх</Link>
+                <Link href="/admission-stats" className="rounded-xl bg-white/10 px-4 py-3 transition hover:bg-white/15">Элсэлтийн статистик харах</Link>
+                <Link href="/contact" className="rounded-xl bg-white/10 px-4 py-3 transition hover:bg-white/15">Бидэнтэй холбогдох</Link>
+              </div>
+            </div>
           </div>
 
           {showDegreeOptions ? (
@@ -339,46 +380,99 @@ export default function Home() {
       </section>
 
       <div className="mx-auto grid max-w-6xl gap-6 px-6 py-10 md:px-14">
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.admissionInfo}</h2>
-          <ul className="grid gap-2 text-sm md:grid-cols-3">
-            <li className="rounded-xl bg-slate-100 p-4">Бүртгэл: 2026.06.01 - 2026.06.25</li>
-            <li className="rounded-xl bg-slate-100 p-4">Шалгалт: 2026.06.20 - 2026.06.30</li>
-            <li className="rounded-xl bg-slate-100 p-4">Элсэлт баталгаажуулалт: 2026.07.01 - 2026.07.05</li>
-          </ul>
+        <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <Link href="/admission-info" className="rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <p className="text-sm font-semibold text-[#7a1221]">01</p>
+            <h2 className="mt-2 text-xl font-bold">{t.admissionInfo}</h2>
+            <p className="mt-2 text-sm text-slate-600">Хугацаа, бүрдүүлэх материал, шалгалтын үе шат.</p>
+          </Link>
+          <Link href="/registration-guide" className="rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <p className="text-sm font-semibold text-[#7a1221]">02</p>
+            <h2 className="mt-2 text-xl font-bold">{t.guide}</h2>
+            <p className="mt-2 text-sm text-slate-600">Алхам алхмаар бүртгэл хийх дараалал.</p>
+          </Link>
+          <Link href="/admission-stats" className="rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <p className="text-sm font-semibold text-[#7a1221]">03</p>
+            <h2 className="mt-2 text-xl font-bold">{t.stats}</h2>
+            <p className="mt-2 text-sm text-slate-600">Өмнөх жилийн элсэлт, өрсөлдөөн, тэтгэлэг.</p>
+          </Link>
+          <Link href="/contact" className="rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <p className="text-sm font-semibold text-[#7a1221]">04</p>
+            <h2 className="mt-2 text-xl font-bold">{t.contact}</h2>
+            <p className="mt-2 text-sm text-slate-600">Хаяг, утас, имэйл, ажлын цаг.</p>
+          </Link>
         </section>
 
         <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.rules}</h2>
-          <div className="grid gap-3 md:grid-cols-3">
-            {[
-              "Элсэлтийн ерөнхий журам",
-              "Ур чадварын шалгалтын журам",
-              "Төлбөр, буцаалт, хөнгөлөлтийн журам",
-            ].map((rule) => (
-              <a key={rule} href="#" className="rounded-xl border p-4 text-sm transition hover:border-[#8b1e2d] hover:text-[#7a1221]">
-                {rule}
-              </a>
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-xl font-bold">{t.calculator}</h2>
+            <Link href="/score-calculator" className="text-sm font-semibold text-[#7a1221] hover:underline">Дэлгэрэнгүй хуудас руу</Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-4">
+            <label className="text-sm">
+              <span className="mb-1 block font-medium">ЕШ оноо</span>
+              <input value={examScore} onChange={(e) => setExamScore(e.target.value)} type="number" className="w-full rounded-lg border px-3 py-2" />
+            </label>
+            <label className="text-sm">
+              <span className="mb-1 block font-medium">Ур чадвар</span>
+              <input value={skillScore} onChange={(e) => setSkillScore(e.target.value)} type="number" className="w-full rounded-lg border px-3 py-2" />
+            </label>
+            <label className="text-sm">
+              <span className="mb-1 block font-medium">Ярилцлага</span>
+              <input value={interviewScore} onChange={(e) => setInterviewScore(e.target.value)} type="number" className="w-full rounded-lg border px-3 py-2" />
+            </label>
+            <div className="rounded-xl bg-rose-50 p-4 text-sm">
+              <p className="text-slate-500">Нийт урьдчилсан оноо</p>
+              <p className="mt-2 text-3xl font-extrabold text-[#7a1221]">{totalScore}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-2xl bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-xl font-bold">Ур чадварын шалгалтын хуваарь</h2>
+          <input
+            value={examQuery}
+            onChange={(e) => setExamQuery(e.target.value)}
+            placeholder="Хөтөлбөр/мэргэжил/байршлаар хайх..."
+            className="mb-4 w-full rounded-lg border px-3 py-2 text-sm"
+          />
+          <div className="hidden overflow-x-auto md:block">
+            <table className="w-full min-w-[620px] text-left text-sm">
+              <thead>
+                <tr className="border-b bg-slate-50">
+                  <th className="px-3 py-2">Огноо</th>
+                  <th className="px-3 py-2">Хөтөлбөр</th>
+                  <th className="px-3 py-2">Мэргэжил</th>
+                  <th className="px-3 py-2">Байршил</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredSchedules.map((s, i) => (
+                  <tr key={i} className="border-b">
+                    <td className="px-3 py-2">{s.date}</td>
+                    <td className="px-3 py-2">{s.program}</td>
+                    <td className="px-3 py-2">{s.major}</td>
+                    <td className="px-3 py-2">{s.place}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="space-y-3 md:hidden">
+            {filteredSchedules.map((s, i) => (
+              <div key={i} className="rounded-xl border p-3 text-sm">
+                <p><span className="font-semibold">Огноо:</span> {s.date}</p>
+                <p><span className="font-semibold">Хөтөлбөр:</span> {s.program}</p>
+                <p><span className="font-semibold">Мэргэжил:</span> {s.major}</p>
+                <p><span className="font-semibold">Байршил:</span> {s.place}</p>
+              </div>
             ))}
           </div>
         </section>
 
         <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.guide}</h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl bg-slate-100 p-4 text-sm">
-              🎥 Видео заавар — hover хийхэд дуугүй preview, Play дарахад бүтэн видео тоглоно
-            </div>
-            <ol className="list-decimal space-y-2 pl-5 text-sm">
-              <li>Системд нэвтрэх / бүртгэл үүсгэх</li>
-              <li>Хөтөлбөр болон мэргэжлээ сонгох</li>
-              <li>Баримт бичиг upload хийх</li>
-              <li>Шалгалтын тов авах</li>
-              <li>Төлбөр төлж баталгаажуулах</li>
-            </ol>
-          </div>
-
-          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+          <h2 className="mb-4 text-xl font-bold">Видео заавар</h2>
+          <div className="grid gap-4 lg:grid-cols-3">
             {storyCards.map((story) => {
               const isPlaying = playingStoryId === story.id;
               const isPreviewing = !isPlaying && previewingStoryId === story.id;
@@ -408,13 +502,7 @@ export default function Home() {
                         allowFullScreen
                       />
                     ) : (
-                      <Image
-                        src={thumbnailUrl}
-                        alt={story.name}
-                        fill
-                        unoptimized
-                        className="object-cover"
-                      />
+                      <Image src={thumbnailUrl} alt={story.name} fill unoptimized className="object-cover" />
                     )}
 
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
@@ -442,110 +530,46 @@ export default function Home() {
             })}
           </div>
         </section>
-
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">Сошиалд хуваалцах</h2>
-          <div className="flex flex-wrap gap-3 text-sm">
-            <a className="rounded-lg bg-slate-900 px-4 py-2 text-white" href="#">Facebook</a>
-            <a className="rounded-lg bg-sky-500 px-4 py-2 text-white" href="#">X / Twitter</a>
-            <a className="rounded-lg bg-blue-500 px-4 py-2 text-white" href="#">Telegram</a>
-          </div>
-        </section>
-
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.stats}</h2>
-          <div className="grid gap-3 text-sm md:grid-cols-4">
-            <div className="rounded-xl bg-rose-50 p-4">2025 элсэгч: <b>4,860</b></div>
-            <div className="rounded-xl bg-rose-50 p-4">Өрсөлдөөн: <b>1:3.1</b></div>
-            <div className="rounded-xl bg-rose-50 p-4">Тэтгэлэг авсан: <b>812</b></div>
-            <div className="rounded-xl bg-rose-50 p-4">Орон нутаг: <b>41%</b></div>
-          </div>
-        </section>
-
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.programs}</h2>
-          <input
-            value={programQuery}
-            onChange={(e) => setProgramQuery(e.target.value)}
-            placeholder="Хөтөлбөр хайх..."
-            className="mb-4 w-full rounded-lg border px-3 py-2 text-sm"
-          />
-          <div className="grid gap-3">
-            {filteredPrograms.map((p) => (
-              <div key={p.id} className="rounded-xl border p-4 text-sm">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="font-semibold">{p.name}</h3>
-                  <span className="rounded-md bg-rose-100 px-2 py-1 text-xs text-[#7a1221]">Босго оноо: {p.score}</span>
-                </div>
-                <p className="mt-1 text-slate-600">Түвшин: {p.degree}</p>
-                <p className="mt-1 text-slate-600">Шаардлага: {p.requirement}</p>
-                <p className="mt-1 text-slate-600">Мэргэжлүүд: {p.majors.join(", ")}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">{t.majors}</h2>
-          <input
-            value={majorQuery}
-            onChange={(e) => setMajorQuery(e.target.value)}
-            placeholder="Мэргэжил хайх..."
-            className="mb-4 w-full rounded-lg border px-3 py-2 text-sm"
-          />
-          <div className="flex flex-wrap gap-2 text-sm">
-            {filteredMajors.map((m) => (
-              <span key={m} className="rounded-full bg-slate-100 px-3 py-1">
-                {m}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold">Ур чадварын шалгалтын хуваарь</h2>
-          <input
-            value={examQuery}
-            onChange={(e) => setExamQuery(e.target.value)}
-            placeholder="Хөтөлбөр/мэргэжил/байршлаар хайх..."
-            className="mb-4 w-full rounded-lg border px-3 py-2 text-sm"
-          />
-          <div className="space-y-3 md:hidden">
-            {filteredSchedules.map((s, i) => (
-              <div key={i} className="rounded-xl border p-3 text-sm">
-                <p><span className="font-semibold">Огноо:</span> {s.date}</p>
-                <p><span className="font-semibold">Хөтөлбөр:</span> {s.program}</p>
-                <p><span className="font-semibold">Мэргэжил:</span> {s.major}</p>
-                <p><span className="font-semibold">Байршил:</span> {s.place}</p>
-              </div>
-            ))}
-          </div>
-          <div className="hidden overflow-x-auto md:block">
-            <table className="w-full min-w-[620px] text-left text-sm">
-              <thead>
-                <tr className="border-b bg-slate-50">
-                  <th className="px-3 py-2">Огноо</th>
-                  <th className="px-3 py-2">Хөтөлбөр</th>
-                  <th className="px-3 py-2">Мэргэжил</th>
-                  <th className="px-3 py-2">Байршил</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredSchedules.map((s, i) => (
-                  <tr key={i} className="border-b">
-                    <td className="px-3 py-2">{s.date}</td>
-                    <td className="px-3 py-2">{s.program}</td>
-                    <td className="px-3 py-2">{s.major}</td>
-                    <td className="px-3 py-2">{s.place}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="hidden" aria-hidden="true" />
       </div>
+
+      <footer className="mt-12 bg-[#7a1221] text-white">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-[1.3fr_1fr_1fr] md:px-14">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">SUIS</p>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-wide md:text-3xl">Соёл Урлагийн Их Сургууль</h2>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-white/85">
+              Элсэлтийн мэдээлэл, бүртгэл, шалгалтын хуваарь болон шаардлагатай зааврыг нэг дороос авах албан ёсны орчин.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/80">Холбоос</h3>
+            <ul className="mt-4 space-y-3 text-sm text-white/90">
+              <li><Link href="/admission-info" className="transition hover:text-white">Бүртгэлийн мэдээлэл</Link></li>
+              <li><Link href="/registration-guide" className="transition hover:text-white">Бүртгэлийн заавар</Link></li>
+              <li><Link href="/admission-stats" className="transition hover:text-white">Элсэлтийн статистик</Link></li>
+              <li><Link href="/contact" className="transition hover:text-white">Бидэнтэй холбогдох</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/80">Холбоо барих</h3>
+            <ul className="mt-4 space-y-3 text-sm text-white/90">
+              <li>Улаанбаатар хот, СБД</li>
+              <li>admission@suis.edu.mn</li>
+              <li>+976 11 123456</li>
+              <li>Даваа–Баасан, 09:00–18:00</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-white/15">
+          <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-4 text-xs text-white/70 md:flex-row md:items-center md:justify-between md:px-14">
+            <p>© 2026 Соёл Урлагийн Их Сургууль. Бүх эрх хуулиар хамгаалагдсан.</p>
+            <p>Vine red theme · Admission System</p>
+          </div>
+        </div>
+      </footer>
 
       <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
         {chatOpen ? (
