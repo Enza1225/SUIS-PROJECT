@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+const YOUTUBE_PREVIEW_SECONDS = 10;
+
 type Lang = "mn" | "en" | "zh";
 
 const programs = [
@@ -66,6 +68,73 @@ const faqs = [
   },
 ];
 
+const studentStories = [
+  {
+    id: 1,
+    name: "Оюутан 1",
+    quote: "Сургуулийн орчин, боломжууд надад хамгийн их таалагдсан.",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  },
+  {
+    id: 2,
+    name: "Оюутан 2",
+    quote: "Энд би өөрийн чиглэлээ илүү тодорхой олсон.",
+    youtubeUrl: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
+  },
+  {
+    id: 3,
+    name: "Оюутан 3",
+    quote: "Багш нарын дэмжлэг, орчны уур амьсгал урам өгдөг.",
+    youtubeUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+  },
+];
+
+function extractYouTubeVideoId(url: string) {
+  try {
+    const parsed = new URL(url);
+
+    if (parsed.hostname.includes("youtu.be")) {
+      return parsed.pathname.replace(/^\//, "");
+    }
+
+    if (parsed.pathname.includes("/shorts/")) {
+      return parsed.pathname.split("/shorts/")[1]?.split("/")[0] ?? "";
+    }
+
+    if (parsed.pathname.includes("/embed/")) {
+      return parsed.pathname.split("/embed/")[1]?.split("/")[0] ?? "";
+    }
+
+    return parsed.searchParams.get("v") ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function buildYouTubeEmbedUrl(videoId: string, mode: "preview" | "full") {
+  const params = new URLSearchParams({
+    autoplay: "1",
+    rel: "0",
+    modestbranding: "1",
+    playsinline: "1",
+    enablejsapi: "1",
+  });
+
+  if (mode === "preview") {
+    params.set("mute", "1");
+    params.set("controls", "0");
+    params.set("start", "0");
+    params.set("end", String(YOUTUBE_PREVIEW_SECONDS));
+    params.set("loop", "1");
+    params.set("playlist", videoId);
+  } else {
+    params.set("mute", "0");
+    params.set("controls", "1");
+  }
+
+  return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+}
+
 const copy = {
   mn: {
     title: "СОЁЛ УРЛАГИЙН ИХ СУРГУУЛЬ",
@@ -116,6 +185,8 @@ export default function Home() {
   const [activeFaq, setActiveFaq] = useState(0);
   const [showDegreeOptions, setShowDegreeOptions] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [previewingStoryId, setPreviewingStoryId] = useState<number | null>(null);
+  const [playingStoryId, setPlayingStoryId] = useState<number | null>(null);
   const [showAuthSuccess] = useState(() => {
     if (typeof window === "undefined") return false;
     const params = new URLSearchParams(window.location.search);
@@ -152,6 +223,17 @@ export default function Home() {
         return value.includes(examQuery.toLowerCase());
       }),
     [examQuery],
+  );
+
+  const storyCards = useMemo(
+    () =>
+      studentStories
+        .map((story) => ({
+          ...story,
+          videoId: extractYouTubeVideoId(story.youtubeUrl),
+        }))
+        .filter((story) => story.videoId),
+    [],
   );
 
   return (
@@ -284,7 +366,9 @@ export default function Home() {
         <section className="rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-xl font-bold">{t.guide}</h2>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl bg-slate-100 p-4 text-sm">🎥 Видео заавар (YouTube embed байрлуулах хэсэг)</div>
+            <div className="rounded-xl bg-slate-100 p-4 text-sm">
+              🎥 Видео заавар — hover хийхэд дуугүй preview, Play дарахад бүтэн видео тоглоно
+            </div>
             <ol className="list-decimal space-y-2 pl-5 text-sm">
               <li>Системд нэвтрэх / бүртгэл үүсгэх</li>
               <li>Хөтөлбөр болон мэргэжлээ сонгох</li>
@@ -292,6 +376,70 @@ export default function Home() {
               <li>Шалгалтын тов авах</li>
               <li>Төлбөр төлж баталгаажуулах</li>
             </ol>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {storyCards.map((story) => {
+              const isPlaying = playingStoryId === story.id;
+              const isPreviewing = !isPlaying && previewingStoryId === story.id;
+              const embedUrl = buildYouTubeEmbedUrl(story.videoId, isPlaying ? "full" : "preview");
+              const thumbnailUrl = `https://i.ytimg.com/vi/${story.videoId}/hqdefault.jpg`;
+
+              return (
+                <article
+                  key={story.id}
+                  className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 text-white shadow-sm"
+                  onMouseEnter={() => {
+                    if (!isPlaying) setPreviewingStoryId(story.id);
+                  }}
+                  onMouseLeave={() => {
+                    if (!isPlaying) setPreviewingStoryId((current) => (current === story.id ? null : current));
+                  }}
+                >
+                  <div className="relative aspect-[4/5] bg-black">
+                    {isPreviewing || isPlaying ? (
+                      <iframe
+                        key={`${story.id}-${isPlaying ? "full" : "preview"}`}
+                        src={embedUrl}
+                        title={`${story.name} video`}
+                        className="absolute inset-0 h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <Image
+                        src={thumbnailUrl}
+                        alt={story.name}
+                        fill
+                        unoptimized
+                        className="object-cover"
+                      />
+                    )}
+
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+
+                    {!isPlaying ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPlayingStoryId(story.id);
+                          setPreviewingStoryId(null);
+                        }}
+                        className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-md bg-black/85 px-5 py-3 text-sm font-bold tracking-wide text-white transition hover:bg-[#7a1221]"
+                      >
+                        PLAY ▶
+                      </button>
+                    ) : null}
+
+                    <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-center">
+                      <p className="text-lg font-extrabold uppercase tracking-wide">{story.name}</p>
+                      <p className="mt-2 text-sm leading-6 text-white/90">“{story.quote}”</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
